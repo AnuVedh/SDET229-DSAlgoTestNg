@@ -3,27 +3,11 @@
 
 
 
-<suite name="Parallel Suite" parallel="tests" thread-count="2">
-
-    <test name="Parallel Test chrome" thread-count="2">
-        <parameter name="browser" value="chrome"></parameter> 
-        <classes>
-            <class name="Runner.TestRunner"/>
-        </classes>
-    </test>
-
-    <test name="Parallel Test edge" thread-count="2">
-        <parameter name="browser" value="edge"></parameter> 
-        <classes>
-            <class name="Runner.TestRunner"/>
-        </classes>
-    </test>
-
-    <test name="Parallel Test firefox" thread-count="2">
-        <parameter name="browser" value="firefox"></parameter> 
-        <classes>
-            <class name="Runner.TestRunner"/>
-        </classes>
-    </test>
-
-</suite>
+<suite name="Suite">
+  <test thread-count="5" name="Test" parallel="classes">
+    <classes>
+      <class name="TestCase.TestCase_Queue"/>
+      <class name="TestCase.TestCase_SignIn"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
