@@ -1,5 +1,4 @@
-
-package DriverFactory;
+package driverFactory;
 
 import java.time.Duration;
 
@@ -11,13 +10,10 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import Utils.ConfigReader;
-import io.cucumber.java.After;
 
 public class DriverFactory {
-	private static final Logger logger = LogManager
-			.getLogger(DriverFactory.class);
+	private static final Logger logger = LogManager.getLogger(DriverFactory.class);
 	private static final ThreadLocal<WebDriver> tldriver = new ThreadLocal<>();
-	private static ThreadLocal<String> plbrowser = new ThreadLocal<>();
 
 	private static WebDriver driver;
 
@@ -26,22 +22,14 @@ public class DriverFactory {
 
 	}
 
-	public static void setupBrowser(String browser) {
-		plbrowser.set(browser);
-
-	}
-
-	public static String getBrowser() {
-		return plbrowser.get();
-
-	}
-
 	public static void initDriver() {
 
-		String browserName = plbrowser.get();
+		String browserName = null;
+
 		if (browserName == null) {
 
 			browserName = ConfigReader.getProperty("browser");
+			// System.out.println("browser name is " + browserName);
 		}
 
 		logger.info("You selected " + browserName + " to run these tests");
@@ -63,13 +51,6 @@ public class DriverFactory {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
 		driver.manage().window().maximize();
-
-	}
-
-	@After(order = 0)
-	public void close() {
-
-		tldriver.remove();
 
 	}
 
