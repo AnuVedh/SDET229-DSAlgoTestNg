@@ -11,63 +11,67 @@ import org.testng.annotations.Test;
 import Utils.ExcelUtil;
 import baseTest.BaseTest;
 
-public class TestCase_Queue extends BaseTest {
+public class TestCase_Graph extends BaseTest {
 
 	@BeforeMethod
-	public void goToQueuePage() throws InterruptedException, IOException {
+	public void goToGraphPage() throws InterruptedException, IOException {
+
 		pom.getSignIN().userLogin();
-		pom.getQueuePage().goToQueuePAge();
+		pom.getGraphPage().goToGraphPage();
+
 	}
 
 	@AfterMethod
 	public void SignOut() {
+
 		pom.getSignIN().Signout();
+
 	}
 
 	@Test
-	public void VerifyQueueSubTopicLinkCount() {
+	public void VerifyGraphSubTopicLinkCount() {
 
-		Assert.assertTrue(pom.getQueuePage().getQsubTopicLinkCount());
+		Assert.assertTrue(pom.getGraphPage().getGraphsubTopicLinkCount());
 
 	}
 
 	@Test(dataProvider = "ExcelData", dataProviderClass = ExcelUtil.class)
-	public void VerifyQueueSubTopicLinkNames(Map<String, String> linkName)
+	public void VerifyGraphSubTopicLinkNames(Map<String, String> linkName)
 			throws IOException {
 
-		Assert.assertTrue(pom.getQueuePage()
-				.getQsubTopicLinkName(linkName.get("QueuePageLinks")));
+		Assert.assertTrue(pom.getGraphPage()
+				.getGraphsubTopicLinkName(linkName.get("GraphPageLinks")));
 	}
 
 	@Test(dataProvider = "ExcelData", dataProviderClass = ExcelUtil.class, groups = {
 			"SubTopic"})
-	public void VerifyQueueSubTopicsPage(Map<String, String> linkName)
+	public void VerifyGraphSubTopicsPage(Map<String, String> linkName)
 			throws InterruptedException {
 
-		pom.getQueuePage()
-				.clickonQueueSubtopicLinks(linkName.get("QueuePageLinks"));
-		boolean result = pom.getQueuePage()
-				.verifyQueuesubTopicLinkPage(linkName.get("QueuePageLinks"));
+		pom.getGraphPage()
+				.clickonGraphsubTopicLinks(linkName.get("GraphPageLinks"));
+		boolean result = pom.getGraphPage()
+				.verifyGraphsubTopicLinkPage(linkName.get("GraphPageLinks"));
 		Assert.assertTrue(result);
 	}
 
 	@Test(dataProvider = "ExcelData", dataProviderClass = ExcelUtil.class, groups = {
 			"SubTopic"})
-	public void VerfiyQueueSubtopicTryHereLink(Map<String, String> linkName)
+	public void VerfiyGraphSubtopicTryHereLink(Map<String, String> linkName)
 			throws InterruptedException {
 
-		pom.getQueuePage()
-				.clickonQueueSubtopicLinks(linkName.get("QueuePageLinks"));
-		pom.getQueuePage().tryHere(linkName.get("QueuePageLinks"));
+		pom.getGraphPage()
+				.clickonGraphsubTopicLinks(linkName.get("GraphPageLinks"));
+		pom.getGraphPage().tryHere(linkName.get("GraphPageLinks"));
 		Assert.assertTrue(pom.getQueuePage().VerifyAssementPage());
 
 	}
 
 	@Test(dataProvider = "ExcelData", dataProviderClass = ExcelUtil.class, groups = {
 			"SubTopic"})
-	public void VerifyQueueSubtopicCodeExecution(Map<String, String> linkName)
+	public void VerifyGraphSubtopicCodeExecution(Map<String, String> linkName)
 			throws InterruptedException {
-		pom.getQueuePage().subTopicSetUp(linkName.get("QueuePageLinks"));
+		pom.getQueuePage().subTopicSetUp(linkName.get("GraphPageLinks"));
 		pom.getQueuePage().enterCode(linkName.get("Code"));
 		Assert.assertTrue(pom.getQueuePage().getOutput(linkName.get("Output")));
 

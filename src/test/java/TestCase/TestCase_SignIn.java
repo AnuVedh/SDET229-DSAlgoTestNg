@@ -4,22 +4,23 @@ import java.io.IOException;
 import java.util.Map;
 
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import Utils.ExcelUtil;
 import baseTest.BaseTest;
-import testFlow.ModuleFlow;
 
 public class TestCase_SignIn extends BaseTest {
 
-	private ModuleFlow moduleFlow;
+	// private ModuleFlow moduleFlow;
 
-	@BeforeMethod()
-	public void GotoSignInPage() {
-		moduleFlow = new ModuleFlow(pom);
-		moduleFlow.commonSetUp();
-	}
+	// @BeforeMethod()
+	// public void GotoSignInPage() {
+	// moduleFlow = new ModuleFlow(pom);
+	// moduleFlow.commonSetUp();
+	// System.out.println("START | Thread ID: beforeclass"
+	// + Thread.currentThread().getId() + " | Thread Name: "
+	// + Thread.currentThread().getName());
+	// }
 
 	@Test()
 	public void VerifyRegisterLink() {
@@ -38,11 +39,15 @@ public class TestCase_SignIn extends BaseTest {
 	}
 
 	@Test(dataProvider = "ExcelData", dataProviderClass = ExcelUtil.class, retryAnalyzer = Utils.RetryAnalyzer.class)
-	public void VerifySignInTestcases(Map<String, String> Logindata) throws IOException, InterruptedException {
-		pom.getSignIN().Login(Logindata.get("Username"), Logindata.get("Password"));
-		String loginMessage = pom.getSignIN().verifySuccesfulLogintc(Logindata.get("TestCase"));
+	public void VerifySignInTestcases(Map<String, String> Logindata)
+			throws IOException, InterruptedException {
+		pom.getSignIN().Login(Logindata.get("Username"),
+				Logindata.get("Password"));
+		String loginMessage = pom.getSignIN()
+				.verifySuccesfulLogintc(Logindata.get("TestCase"));
 		pom.getSignIN().Signout(loginMessage);
 		System.out.println("count");
-		Assert.assertEquals(loginMessage.trim(), Logindata.get("Expected Result").trim());
+		Assert.assertEquals(loginMessage.trim(),
+				Logindata.get("Expected Result").trim());
 	}
 }
