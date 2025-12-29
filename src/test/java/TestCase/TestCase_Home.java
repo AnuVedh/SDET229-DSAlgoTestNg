@@ -15,7 +15,7 @@ import pages.SignInPage;
 public class TestCase_Home {
 	private static final Logger logger = LogManager
 			.getLogger(TestCase_Home.class);
-
+    
 	HomePage homepage = new HomePage();
 	SignInPage signIn = new SignInPage();
 

@@ -3,7 +3,7 @@ package baseTest;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
-import driverFactory.DriverFactory;
+import DriverFactory.DriverFactory;
 import pom.PageObjectManager;
 
 public class BaseTest {
