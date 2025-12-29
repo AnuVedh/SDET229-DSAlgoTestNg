@@ -1,3 +1,4 @@
+
 package pages;
 
 import java.io.IOException;
@@ -53,6 +54,7 @@ public class SignInPage extends BasePage {
 	public void clickOnSignIn() {
 
 		logger.info("Click On SignIn Link");
+
 		signInLink.click();
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.urlContains("login"));
@@ -93,7 +95,8 @@ public class SignInPage extends BasePage {
 		return LoginAlert.getText();
 	}
 
-	public String verifySuccesfulLogintc(String testcase) throws InterruptedException {
+	public String verifySuccesfulLogintc(String testcase)
+			throws InterruptedException {
 
 		logger.info("Verify Login ");
 		String validationMessage1 = null;
@@ -103,9 +106,11 @@ public class SignInPage extends BasePage {
 			// Thread.sleep(1000);
 
 			JavascriptExecutor js = (JavascriptExecutor) driver;
-			validationMessage1 = (String) js.executeScript("return arguments[0].validationMessage;", UsernameInputbox);
+			validationMessage1 = (String) js.executeScript(
+					"return arguments[0].validationMessage;", UsernameInputbox);
 			if (validationMessage1.isBlank()) {
-				validationMessage1 = (String) js.executeScript("return arguments[0].validationMessage;",
+				validationMessage1 = (String) js.executeScript(
+						"return arguments[0].validationMessage;",
 						PasswordInputbox);
 			}
 		} else {
@@ -119,12 +124,30 @@ public class SignInPage extends BasePage {
 
 	public void Signout(String actualMessage) {
 		System.out.println("actual message is" + actualMessage);
+		// if (!(actualMessage == null)) {
 		if (actualMessage.trim().equalsIgnoreCase("You are logged in")) {
 			Signoutlink.click();
 		}
 	}
 
 	public void Signout() {
+
+		if (driver.getTitle().equalsIgnoreCase("Assessment")) {
+			driver.navigate().back();
+		}
+
+		// try {
+		// if (Signoutlink.isDisplayed()) {
+		// Signoutlink.click();
+		// }
+		// } catch (NoSuchElementException e) {
+		//
+		// }
+		// if (!Signoutlink.isEmpty()) {
+		// Signoutlink.get(0).click();
+		//
+		// // driver.close();
+		// }
 		Signoutlink.click();
 	}
 }

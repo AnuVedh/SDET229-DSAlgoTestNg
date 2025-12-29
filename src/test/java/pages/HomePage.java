@@ -1,3 +1,4 @@
+
 package pages;
 
 import java.time.Duration;
@@ -17,6 +18,8 @@ import Utils.ConfigReader;
 import webElementActions.ElementActions;
 
 public class HomePage extends BasePage {
+
+	// private WebDriver driver = super.driver;
 
 	private static final Logger logger = LogManager.getLogger(HomePage.class);
 
@@ -106,16 +109,20 @@ public class HomePage extends BasePage {
 		while (retries > 0) {
 			try {
 
-				WebElement freshDropdownBtn = wait.until(ExpectedConditions.elementToBeClickable(dropdownBtn));
+				WebElement freshDropdownBtn = wait.until(
+						ExpectedConditions.elementToBeClickable(dropdownBtn));
 				freshDropdownBtn.click();
 
 				// Re-fetch dropdown options each time to avoid
 				// StaleElementReference Exception
-				List<WebElement> freshOptions = wait.until(ExpectedConditions.visibilityOfAllElements(dropdownTopics));
+				List<WebElement> freshOptions = wait.until(ExpectedConditions
+						.visibilityOfAllElements(dropdownTopics));
 
 				for (WebElement option : freshOptions) {
 					if (option.getText().trim().equalsIgnoreCase(topicName)) {
-						wait.until(ExpectedConditions.elementToBeClickable(option)).click();
+						wait.until(
+								ExpectedConditions.elementToBeClickable(option))
+								.click();
 						return;
 					}
 				}
