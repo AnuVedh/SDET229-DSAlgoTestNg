@@ -2,6 +2,7 @@ package pom;
 
 import org.openqa.selenium.WebDriver;
 
+import pages.GraphPage;
 import pages.HomePage;
 import pages.QueuePage;
 import pages.SignInPage;
@@ -14,10 +15,25 @@ public class PageObjectManager {
 	private HomePage homePage;
 	private SignInPage signIn;
 	private QueuePage queue;
+	private GraphPage graph;
+	// private CommonPage commonPage;
 
 	public PageObjectManager(WebDriver driver) {
+		// driverFactory = new DriverFactory();
+		// driver = driverFactory.getDriver();
 		this.driver = driver;
+
+		System.out.println("driver inside POM is " + driver);
 	}
+
+	// public DriverFactory getDriverFactory() {
+	//
+	// if (driverFactory == null) {
+	// driverFactory = new DriverFactory();
+	// }
+	// return driverFactory;
+	//
+	// }
 
 	public WebDriver getDriver() {
 		return driver;
@@ -49,5 +65,23 @@ public class PageObjectManager {
 		return queue;
 
 	}
+
+	public GraphPage getGraphPage() {
+
+		if (graph == null) {
+			graph = new GraphPage(driver);
+		}
+		return graph;
+
+	}
+
+	// public CommonPage getCommonPage() {
+	//
+	// if (commonPage == null) {
+	// commonPage = new CommonPage(driver);
+	// }
+	// return commonPage;
+
+	// }
 
 }
