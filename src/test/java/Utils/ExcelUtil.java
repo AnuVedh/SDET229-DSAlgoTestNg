@@ -25,12 +25,18 @@ public class ExcelUtil {
 	public synchronized Object[][] getData(Method methodName) throws Exception {
 		FileInputStream filelocation = new FileInputStream(filepath);
 		workbook = new XSSFWorkbook(filelocation);
-		String testsheet = getSheetName(methodName.getDeclaringClass().getName());
+		// System.out.println(methodName.getName());
+		// System.out.println(methodName.getDeclaringClass());
+		// System.out.println(methodName.getDeclaringClass().getName());
+		String testsheet = getSheetName(
+				methodName.getDeclaringClass().getName());
 		sheet = workbook.getSheet(testsheet);
 		int rows = sheet.getPhysicalNumberOfRows();
 		int cols = sheet.getRow(0).getLastCellNum();
 
 		List<Map<String, String>> data = new ArrayList<>();
+
+		DataFormatter formatter = new DataFormatter();
 
 		for (int i = 1; i < rows; i++) {
 			Map<String, String> testData = new HashMap<>();
@@ -38,7 +44,10 @@ public class ExcelUtil {
 
 			for (int j = 0; j < cols; j++) {
 				String key = sheet.getRow(0).getCell(j).getStringCellValue();
-				String value = (row.getCell(j) == null) ? "" : row.getCell(j).toString();
+				String value = (row.getCell(j) == null)
+						? ""
+						: formatter.formatCellValue(row.getCell(j));
+				// : row.getCell(j).toString();
 				testData.put(key, value);
 			}
 			data.add(testData);
@@ -58,17 +67,20 @@ public class ExcelUtil {
 	private static String getSheetName(String sheetMethod) {
 
 		switch (sheetMethod) {
-		case "TestCase.TestCase_SignIn":
-			return "Sign-IN";
-		case "TestCase.TestCase_Queue":
-			return "Queue";
-		default:
-			return null;
+			case "TestCase.TestCase_SignIn" :
+				return "Sign-IN";
+			case "TestCase.TestCase_Queue" :
+				return "Queue";
+			case "TestCase.TestCase_Graph" :
+				return "Graph";
+			default :
+				return null;
 		}
 
 	}
 
-	public static synchronized List<Map<String, String>> getTestData(String sheetName) throws IOException {
+	public static synchronized List<Map<String, String>> getTestData(
+			String sheetName) throws IOException {
 		List<Map<String, String>> testData = new ArrayList<>();
 
 		workbook = new XSSFWorkbook(filepath);
@@ -86,7 +98,9 @@ public class ExcelUtil {
 
 			for (int j = 0; j < cols; j++) {
 				String key = sheet.getRow(0).getCell(j).getStringCellValue();
-				String value = (row.getCell(j) == null) ? "" : formatter.formatCellValue(row.getCell(j));
+				String value = (row.getCell(j) == null)
+						? ""
+						: formatter.formatCellValue(row.getCell(j));
 				// row.getCell(j).toString();
 				map.put(key, value);
 			}
