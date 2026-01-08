@@ -39,6 +39,7 @@ public class HomePage extends BasePage {
 
 	@FindBy(xpath = "//a[contains(@class,'nav-link dropdown-toggle')]")
 	WebElement dropdownBtn;
+	
 
 	@FindBy(xpath = "//div[contains(@class,'alert')]")
 	WebElement errorMsg;
@@ -54,14 +55,17 @@ public class HomePage extends BasePage {
 
 	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
+	ElementActions elementActions;
 	public HomePage(WebDriver driver) {
 		super(driver);
-		new ElementActions(driver);
+		elementActions = new ElementActions(driver);
+	
 	}
 
 	public void clickGetStarted() {
 
-		getStartedButton.click();
+		elementActions.clickAction(getStartedButton);
+		
 	}
 
 	public String fetchTitle() {
@@ -73,15 +77,18 @@ public class HomePage extends BasePage {
 		String url = ConfigReader.getProperty("url");
 		driver.get(url);
 	}
-
-	// select register link or signin link
-	public void clickLink(String linkName) {
-		if (linkName.equalsIgnoreCase("Register")) {
-			registerLink.click();
-		} else if (linkName.equalsIgnoreCase("Sign in")) {
-			signinLink.click();
-		}
+	public void goToHomePage() {
+	    driver.navigate().to("https://dsportalapp.herokuapp.com/home");
 	}
+
+	public void clickRegisterLink() {
+	    elementActions.clickAction(registerLink);
+	}
+
+	public void clickSignInLink() {
+	    elementActions.clickAction(signinLink);
+	}
+
 
 	public String fetchregisterTitle() {
 
@@ -99,39 +106,11 @@ public class HomePage extends BasePage {
 
 	public void selectTopicFromDropdown(String topicName) {
 
-		// WebDriverWait wait = new WebDriverWait(driver,
-		// Duration.ofSeconds(10));
-
-		int retries = 3;
-		while (retries > 0) {
-			try {
-
-				WebElement freshDropdownBtn = wait.until(ExpectedConditions.elementToBeClickable(dropdownBtn));
-				freshDropdownBtn.click();
-
-				// Re-fetch dropdown options each time to avoid
-				// StaleElementReference Exception
-				List<WebElement> freshOptions = wait.until(ExpectedConditions.visibilityOfAllElements(dropdownTopics));
-
-				for (WebElement option : freshOptions) {
-					if (option.getText().trim().equalsIgnoreCase(topicName)) {
-						wait.until(ExpectedConditions.elementToBeClickable(option)).click();
-						return;
-					}
-				}
-
-			} catch (StaleElementReferenceException e) {
-
-				// ReInitialize page factory to refresh all elements
-				//
-				PageFactory.initElements(driver, this);// recreates ALL @FindBy
-														// elements fresh from
-														// the current DOM.
-				retries--;
-			}
-		}
-
-		throw new RuntimeException("Dropdown option NOT found: " + topicName);
+		elementActions.clickAction(dropdownBtn);
+		
+		List<WebElement> freshOptions = wait.until(ExpectedConditions.visibilityOfAllElements(dropdownTopics));
+		elementActions.clickElementByText(freshOptions, topicName);
+		
 	}
 
 	public String fetchErrorMsg() {
@@ -141,26 +120,38 @@ public class HomePage extends BasePage {
 
 		return errorMsg.getText();
 	}
+	
+	
 
 	public void getStartedclick(String topic) {
+		
+		
+		System.out.println("Current URL: " + driver.getCurrentUrl());
+		System.out.println("Topics found: " + getstartedTopic.size());
+		System.out.println("Buttons found: " + getstartedBtn.size());
 
-		for (int i = 0; i < getstartedTopic.size(); i++) { // looping since it
-															// has multiple
-															// getstarted button
+	//	String normalizedTarget = topic.replaceAll("[\\t\\n\\r]+", "").trim().toLowerCase();
+		String normalizedTarget = topic.strip().toLowerCase();
+		List<WebElement> freshTopics =
+	            wait.until(ExpectedConditions.visibilityOfAllElements(getstartedTopic));
+		
+		for (int i = 0; i < freshTopics.size(); i++) {
+		    String normalizedText = freshTopics.get(i).getText().strip().toLowerCase();
+		    logger.info("Topic clicked: " + getstartedTopic.get(i).getText());
 
-			String topicsTxt = getstartedTopic.get(i).getText();// getting exact
-																// location text
 
-			if (topicsTxt.equalsIgnoreCase(topic)) {
-				WebElement btn = getstartedBtn.get(i);
-
-				btn.click();
-
-				logger.info("topics clicked are: " + topicsTxt);
-
-				break;
-			}
+		    if (normalizedText.equals(normalizedTarget)) {
+		        List<WebElement> freshButtons =
+		                wait.until(ExpectedConditions.visibilityOfAllElements(getstartedBtn));
+		        System.out.print("FreshButtons:"+freshButtons.get(i).getText());
+		        elementActions.clickAction(freshButtons.get(i));
+		        
+		        
+		        return;
+		    }
 		}
+		throw new RuntimeException("Get Started button not found for topic: " + topic);
+
 
 	}
 
@@ -170,7 +161,9 @@ public class HomePage extends BasePage {
 	}
 
 	public void gotosignin() {
-		signinLink.click();
+		elementActions.clickAction(signinLink);
+//	"Stack\r\n"
+//	+ ""
 	}
 
 }
