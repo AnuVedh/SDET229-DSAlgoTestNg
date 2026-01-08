@@ -2,6 +2,7 @@ package pom;
 
 import org.openqa.selenium.WebDriver;
 
+import pages.ArraysPage;
 import pages.HomePage;
 import pages.QueuePage;
 import pages.SignInPage;
@@ -14,6 +15,7 @@ public class PageObjectManager {
 	private HomePage homePage;
 	private SignInPage signIn;
 	private QueuePage queue;
+	private ArraysPage arrayspage;
 
 	public PageObjectManager(WebDriver driver) {
 		this.driver = driver;
@@ -31,7 +33,14 @@ public class PageObjectManager {
 		return homePage;
 
 	}
+	public ArraysPage getArraysPage() {
 
+		if (arrayspage == null) {
+			arrayspage = new ArraysPage(driver);
+		}
+		return arrayspage;
+
+	}
 	public SignInPage getSignIN() {
 
 		if (signIn == null) {

@@ -9,17 +9,17 @@ import org.testng.annotations.Test;
 
 import Utils.ExcelUtil;
 import baseTest.BaseTest;
-import testFlow.ModuleFlow;
+//import testFlow.ModuleFlow;
 
 public class TestCase_SignIn extends BaseTest {
 
-	private ModuleFlow moduleFlow;
-
-	@BeforeMethod()
-	public void GotoSignInPage() {
-		moduleFlow = new ModuleFlow(pom);
-		moduleFlow.commonSetUp();
-	}
+//	private ModuleFlow moduleFlow;
+//
+//	@BeforeMethod()
+//	public void GotoSignInPage() {
+//		moduleFlow = new ModuleFlow(pom);
+//		moduleFlow.commonSetUp();
+//	}
 
 	@Test()
 	public void VerifyRegisterLink() {

@@ -81,10 +81,10 @@ public class SignInPage extends BasePage {
 
 		logger.info("Login");
 		List<Map<String, String>> userdata = ExcelUtil.getTestData("Account");
-		UsernameInputbox.sendKeys(userdata.get(0).get("Username"));
-		PasswordInputbox.sendKeys(userdata.get(0).get("Password"));
+		UsernameInputbox.sendKeys("Test-229");
+		PasswordInputbox.sendKeys("Shivagami229.");
 		LoginButton.click();
-
+	
 	}
 
 	public String verifySuccesfulLogin() {

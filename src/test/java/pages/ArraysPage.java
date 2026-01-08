@@ -16,7 +16,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import DriverFactory.DriverFactory;
+import driverFactory.DriverFactory;
 import webElementActions.ElementActions;
 
 public class ArraysPage extends BasePage {
