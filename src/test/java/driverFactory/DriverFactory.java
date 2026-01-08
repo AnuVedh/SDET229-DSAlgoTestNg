@@ -23,14 +23,14 @@ public class DriverFactory {
 
 	}
 
-	public static void initDriver() {
+	public static void initDriver(String browser) {
 
-		String browserName = null;
+		String browserName = browser;
 
 		if (browserName == null) {
 
 			browserName = ConfigReader.getProperty("browser");
-			// System.out.println("browser name is " + browserName);
+
 		}
 
 		logger.info("You selected " + browserName + " to run these tests");
