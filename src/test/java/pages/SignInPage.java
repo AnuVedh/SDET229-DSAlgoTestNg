@@ -2,20 +2,17 @@
 package pages;
 
 import java.io.IOException;
-import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import Utils.ExcelUtil;
+import webElementActions.ElementActions;
 
 public class SignInPage extends BasePage {
 
@@ -45,88 +42,78 @@ public class SignInPage extends BasePage {
 	// private List<WebElement> Signoutlink;
 	@FindBy(linkText = ("Sign out"))
 	private WebElement Signoutlink;
+	private ElementActions elementActions;
 
 	public SignInPage(WebDriver driver) {
 		super(driver);
+		elementActions = new ElementActions(driver);
 
 	}
 
 	public void clickOnSignIn() {
 
 		logger.info("Click On SignIn Link");
-
-		signInLink.click();
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		wait.until(ExpectedConditions.urlContains("login"));
+		elementActions.clickAction(signInLink);
 
 	}
 
 	public String getPageTitle() {
 		logger.info("Verify Sign-IN Page Title");
+
+		elementActions.waitForUrlToContain("register");
 		return driver.getTitle();
 	}
 
 	public void clickLink() {
 		logger.info("Click on Register Link");
-		registerLink.click();
+		elementActions.clickAction(registerLink);
 	}
 
 	public void Login(String username, String password) {
 		logger.info("Login for user: " + username);
-		UsernameInputbox.sendKeys(username);
-		PasswordInputbox.sendKeys(password);
-		LoginButton.click();
-
+		elementActions.sendKeys(UsernameInputbox, username);
+		elementActions.sendKeys(PasswordInputbox, password);
+		elementActions.clickAction(LoginButton);
 	}
 
 	public void userLogin() throws IOException {
 
 		logger.info("Login");
 		List<Map<String, String>> userdata = ExcelUtil.getTestData("Account");
-		UsernameInputbox.sendKeys(userdata.get(0).get("Username"));
-		PasswordInputbox.sendKeys(userdata.get(0).get("Password"));
-		LoginButton.click();
+		elementActions.sendKeys(UsernameInputbox,
+				userdata.get(0).get("Username"));
+		elementActions.sendKeys(PasswordInputbox,
+				userdata.get(0).get("Password"));
+		elementActions.clickAction(LoginButton);
 
 	}
 
-	public String verifySuccesfulLogin() {
+	public boolean verifySuccesfulLogin(String expectedMessage) {
 
 		logger.info("Verify Login ");
-		return LoginAlert.getText();
+		return elementActions.isElementTextEquals(LoginAlert, expectedMessage);
 	}
 
 	public String verifySuccesfulLogintc(String testcase)
 			throws InterruptedException {
 
 		logger.info("Verify Login ");
-		String validationMessage1 = null;
 
-		if (testcase.contains("empty")) {
-
-			// Thread.sleep(1000);
-
-			JavascriptExecutor js = (JavascriptExecutor) driver;
-			validationMessage1 = (String) js.executeScript(
-					"return arguments[0].validationMessage;", UsernameInputbox);
-			if (validationMessage1.isBlank()) {
-				validationMessage1 = (String) js.executeScript(
-						"return arguments[0].validationMessage;",
-						PasswordInputbox);
-			}
+		if (testcase.contains("empty username")) {
+			return elementActions.JavaScriptvalidation(UsernameInputbox);
+		} else if (testcase.contains("empty password")) {
+			return elementActions.JavaScriptvalidation(PasswordInputbox);
 		} else {
-			validationMessage1 = LoginAlert.getText();
+			return elementActions.getText(LoginAlert);
 		}
-		System.out.println(validationMessage1);
-
-		return validationMessage1;
 
 	}
 
 	public void Signout(String actualMessage) {
-		System.out.println("actual message is" + actualMessage);
-		// if (!(actualMessage == null)) {
+
 		if (actualMessage.trim().equalsIgnoreCase("You are logged in")) {
-			Signoutlink.click();
+			elementActions.clickAction(Signoutlink);
+
 		}
 	}
 
@@ -136,18 +123,7 @@ public class SignInPage extends BasePage {
 			driver.navigate().back();
 		}
 
-		// try {
-		// if (Signoutlink.isDisplayed()) {
-		// Signoutlink.click();
-		// }
-		// } catch (NoSuchElementException e) {
-		//
-		// }
-		// if (!Signoutlink.isEmpty()) {
-		// Signoutlink.get(0).click();
-		//
-		// // driver.close();
-		// }
-		Signoutlink.click();
+		elementActions.clickAction(Signoutlink);
+
 	}
 }
