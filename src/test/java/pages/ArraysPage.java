@@ -22,7 +22,7 @@ import webElementActions.ElementActions;
 public class ArraysPage extends BasePage {
 
 	
-	private WebDriver driver;
+//	private WebDriver driver;
 	
 	private static final Logger logger = LogManager
 			.getLogger(ArraysPage.class);
@@ -102,9 +102,17 @@ public class ArraysPage extends BasePage {
 	
 		elementActions.clickAction(tryhereBtn);
 	}
-	public boolean textEditorIsDisplayed() {
-		return texteditor.isDisplayed();
+	public boolean isTryHereButtonVisible() {
+		String tryhereBtnText=tryhereBtn.getText();
+	//	System.out.println(tryhereBtnText);
+	    return tryhereBtn.isDisplayed();
 	}
+
+//	public boolean textEditorIsDisplayed() {
+//		
+//		
+//		return texteditor.isDisplayed();
+//	}
 
 	public void runPythonCode(String code) {
 
