@@ -25,15 +25,25 @@ public class ExtentReport implements ITestListener {
 	// @Override
 	public void onTestStart(ITestResult result) {
 
+		// TODO Auto-generated method stub
+
+		// test = extent.createTest(result.getName());
+		// test = extent.createTest(result.getTestClass().getName());
+		// test.log(Status.INFO, result.getName());
+
 	}
 
 	// @Override
 	public void onTestSuccess(ITestResult result) {
+		// TODO Auto-generated method stub
+
+		String browser = result.getTestContext().getCurrentXmlTest()
+				.getParameter("browser");
 
 		if (result.getAttribute("TestCaseData") != null) {
-			test = extent.createTest(
-					result.getTestClass().getName() + " _ " + result.getName()
-							+ "_" + result.getAttribute("TestCaseData"));
+			test = extent.createTest(result.getTestClass().getName() + " _ "
+					+ result.getName() + "_"
+					+ result.getAttribute("TestCaseData") + "_" + browser);
 
 		} else {
 			test = extent.createTest(
@@ -46,17 +56,21 @@ public class ExtentReport implements ITestListener {
 
 	//// @Override
 	public void onTestFailure(ITestResult result) {
+		// TODO Auto-generated method stub
 
+		String browser = result.getTestContext().getCurrentXmlTest()
+				.getParameter("browser");
 		if (result.getAttribute("TestCaseData") != null) {
-			test = extent.createTest(
-					result.getTestClass().getName() + " _ " + result.getName()
-							+ "_" + result.getAttribute("TestCaseData"));
+			test = extent.createTest(result.getTestClass().getName() + " _ "
+					+ result.getName() + "_"
+					+ result.getAttribute("TestCaseData") + "_" + browser);
+
 		} else {
 			test = extent.createTest(
 					result.getTestClass().getName() + " _ " + result.getName());
 		}
-		test.log(Status.FAIL, result.getName());
 
+		test.log(Status.FAIL, result.getName());
 		test.log(Status.FAIL, result.getThrowable())
 				.addScreenCaptureFromBase64String(Screenshot.base64Sceenshot(),
 						"Test Failure Screenshot");
@@ -68,10 +82,12 @@ public class ExtentReport implements ITestListener {
 	// @Override
 	public void onTestSkipped(ITestResult result) {
 
+		String browser = result.getTestContext().getCurrentXmlTest()
+				.getParameter("browser");
 		if (result.getAttribute("TestCaseData") != null) {
-			test = extent.createTest(
-					result.getTestClass().getName() + " _ " + result.getName()
-							+ "_" + result.getAttribute("TestCaseData"));
+			test = extent.createTest(result.getTestClass().getName() + " _ "
+					+ result.getName() + "_"
+					+ result.getAttribute("TestCaseData") + "_" + browser);
 
 		} else {
 			test = extent.createTest(

@@ -86,6 +86,8 @@ public class CommonPage {
 			Alert alert = driver.switchTo().alert();
 			String alertMsg = alert.getText();
 			alert.accept();
+			System.out.println(alertMsg);
+			System.out.println(output);
 			return (alertMsg.equalsIgnoreCase(output.trim()));
 		} catch (NoAlertPresentException e) {
 			return (element.getText().equalsIgnoreCase(output.trim()));

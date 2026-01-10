@@ -3,6 +3,7 @@ package baseTest;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import driverFactory.DriverFactory;
@@ -11,7 +12,6 @@ import pom.PageObjectManager;
 public class BaseTest {
 
 	protected PageObjectManager pom;
-	// private ModuleFlow moduleFlow;
 
 	@BeforeSuite
 
@@ -22,7 +22,8 @@ public class BaseTest {
 
 	@BeforeMethod
 	@Parameters({"browser"})
-	public void launchBrowser(String browser) throws Exception {
+	public void launchBrowser(@Optional("chrome") String browser)
+			throws Exception {
 		DriverFactory.initDriver(browser);
 		pom = new PageObjectManager(DriverFactory.getDriver());
 		pom.getHomePage().launchApplication();
@@ -30,7 +31,7 @@ public class BaseTest {
 
 	}
 
-	@AfterMethod
+	@AfterMethod(alwaysRun = true)
 	public void quitBrowser() {
 
 		if (DriverFactory.getDriver() != null) {

@@ -1,4 +1,3 @@
-
 package pages;
 
 import java.util.List;
@@ -9,63 +8,63 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class QueuePage extends BasePage {
+public class GraphPage extends BasePage {
 
-	private static final Logger logger = LogManager.getLogger(QueuePage.class);
+	@FindBy(xpath = "//a[@href='graph']")
+	WebElement graphStartButton;
 
 	@FindBy(xpath = "//ul//a[@class='list-group-item']")
-	private List<WebElement> qPageLinkCount;
-	@FindBy(xpath = "//a[@href='queue']")
-	private WebElement qStartButton;
+	List<WebElement> graphPageLinkCount;
+
 	@FindBy(xpath = "//div/strong/p")
-	private WebElement qPageLinkTitle;
+	WebElement graphPageLinkTitle;
+
 	@FindBy(xpath = "//div[@class='CodeMirror-scroll']")
-	private WebElement codeSpace1;
+	WebElement codeSpace1;
+
 	@FindBy(xpath = "//button[text()='Run']")
-	private WebElement runButton;
+	WebElement runButton;
+
 	@FindBy(id = "output")
-	private WebElement Output;
+	WebElement Output;
+
 	@FindBy(linkText = "Try here>>>")
-	private WebElement tryHereLink;
-	@FindBy(xpath = "//a[text()='Queue']")
-	private WebElement selectQueueOption;
-	@FindBy(xpath = "//a[@class='dropdown-item']")
-	private List<WebElement> selectTopic;
-	@FindBy(xpath = "//div[contains(@class,'dropdown-menu')]//a")
-	List<WebElement> dropdownTopics;
-	@FindBy(xpath = "//a[contains(@class,'nav-link dropdown-toggle')]")
-	WebElement dropdownBtn;
+	WebElement tryHereLink;
+
 	@FindBy(xpath = "//a[@data-toggle='dropdown']")
 	private WebElement DSdropdown;
+
+	@FindBy(xpath = "//a[text()='Graph']")
+	private WebElement selectGraphOption;
+
+	private static final Logger logger = LogManager.getLogger(GraphPage.class);
 
 	// ElementActions elementActions;
 	CommonPage commonPage;
 
-	public QueuePage(WebDriver driver) {
+	public GraphPage(WebDriver driver) {
 		super(driver);
 		// elementActions = new ElementActions(driver);
 		commonPage = new CommonPage(driver);
-
 	}
 
-	public void goToQueuePAge() {
-
+	public void goToGraphPage() {
 		logger.info("Select Graph page");
-		commonPage.goToPage(qStartButton);
+		commonPage.goToPage(graphStartButton);
 
 	}
 
-	public boolean getQsubTopicLinkCount() {
+	public boolean getGraphsubTopicLinkCount() {
 		logger.info("Verifying count and names of links on Graph page");
-		if (commonPage.getLinkCount(qPageLinkCount) == 4) {
+		if (commonPage.getLinkCount(graphPageLinkCount) == 2) {
 			return true;
 		}
 		return false;
 	}
 
-	public boolean getQsubTopicLinkName(String linkname) {
+	public boolean getGraphsubTopicLinkName(String linkname) {
 		logger.info("Verifying names of sub topic links on Graph page");
-		return (commonPage.getSubTopicLinkName(qPageLinkCount, linkname));
+		return (commonPage.getSubTopicLinkName(graphPageLinkCount, linkname));
 	}
 
 	public void clickOnDropDown() {
@@ -73,23 +72,24 @@ public class QueuePage extends BasePage {
 	}
 
 	public void selectFromDropDown(String topic) throws InterruptedException {
-		commonPage.selectFromDropDown(selectQueueOption);
+		commonPage.selectFromDropDown(selectGraphOption);
 	}
 
-	public void clickonQueueSubtopicLinks(String qPageLinks)
+	public void clickonGraphsubTopicLinks(String GraphPageLinks)
 			throws InterruptedException {
-		logger.info("Click on Queue Page link: " + qPageLinks);
-		commonPage.clickonSubTopicsLinks(qPageLinkCount, qPageLinks);
+		logger.info("Click on links in Graph Page: " + GraphPageLinks);
+		commonPage.clickonSubTopicsLinks(graphPageLinkCount, GraphPageLinks);
 	}
 
-	public boolean verifyQueuesubTopicLinkPage(String qPageLinks)
+	public boolean verifyGraphsubTopicLinkPage(String GraphPageLinks)
 			throws InterruptedException {
-		logger.info("Verify page title of links on Queue Page");
-		return (commonPage.verifySubTopiclinkPage(qPageLinkTitle, qPageLinks));
+		logger.info("Verify page title of links on Graph Page");
+		return (commonPage.verifySubTopiclinkPage(graphPageLinkTitle,
+				GraphPageLinks));
 	}
 
-	public void tryHere(String qPageLinks) {
-		logger.info("Click on try here:" + qPageLinks);
+	public void tryHere(String GraphPageLinks) {
+		logger.info("Click on try here:" + GraphPageLinks);
 		commonPage.clickonTryHere(tryHereLink);
 
 	}
@@ -112,8 +112,10 @@ public class QueuePage extends BasePage {
 		logger.info("Validate code  output");
 		return (commonPage.getOutput(Output, output));
 	}
-	public void subTopicSetUp(String qPageLinks) throws InterruptedException {
-		commonPage.clickonSubTopicsLinks(qPageLinkCount, qPageLinks);
+
+	public void subTopicSetUp(String GraphPageLinks)
+			throws InterruptedException {
+		commonPage.clickonSubTopicsLinks(graphPageLinkCount, GraphPageLinks);
 		commonPage.clickonTryHere(tryHereLink);
 
 	}
