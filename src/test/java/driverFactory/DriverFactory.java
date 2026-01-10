@@ -1,5 +1,5 @@
 
-package DriverFactory;
+package driverFactory;
 
 import java.time.Duration;
 
@@ -11,7 +11,7 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import Utils.ConfigReader;
-import io.cucumber.java.After;
+
 
 public class DriverFactory {
 	private static final Logger logger = LogManager
@@ -26,19 +26,11 @@ public class DriverFactory {
 
 	}
 
-	public static void setupBrowser(String browser) {
-		plbrowser.set(browser);
 
-	}
 
-	public static String getBrowser() {
-		return plbrowser.get();
+	public static void initDriver(String browser) {
 
-	}
-
-	public static void initDriver() {
-
-		String browserName = plbrowser.get();
+		String browserName = browser;
 		if (browserName == null) {
 
 			browserName = ConfigReader.getProperty("browser");
@@ -66,11 +58,6 @@ public class DriverFactory {
 
 	}
 
-	@After(order = 0)
-	public void close() {
-
-		tldriver.remove();
-
-	}
+	
 
 }
