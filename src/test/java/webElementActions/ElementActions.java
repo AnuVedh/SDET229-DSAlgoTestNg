@@ -13,10 +13,12 @@ public class ElementActions {
 
 	private WebDriver driver;
 	private WebDriverWait wait;
+	private JavascriptExecutor js;
 
 	public ElementActions(WebDriver driver) {
 		this.driver = driver;
 		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		js = (JavascriptExecutor) driver;
 	}
 
 	public void clickAction(WebElement element) {
@@ -69,6 +71,32 @@ public class ElementActions {
 		}
 		String actualText = element.getText().trim();
 		return actualText.equalsIgnoreCase(expectedText.trim());
+	}
+
+	public String getText(WebElement element) {
+
+		if (element != null) {
+			return element.getText().trim();
+		}
+		return null;
+
+	}
+
+	public void waitForUrlToContain(String partialUrl) {
+		wait.until(ExpectedConditions.urlContains(partialUrl));
+	}
+
+	public void sendKeys(WebElement element, String text) {
+		wait.until(ExpectedConditions.visibilityOf(element));
+		element.clear();;
+		element.sendKeys(text);
+	}
+
+	public String JavaScriptvalidation(WebElement element) {
+
+		return ((String) js.executeScript(
+				"return arguments[0].validationMessage;", element));
+
 	}
 
 }
