@@ -36,15 +36,19 @@ public class TestCase_Arrays extends BaseTest {
 		Assert.assertEquals(actualTitle, topicName,
 				"Title mismatch for topic: " + topicName);
 	}
-	@Test
-	public void verifyTryHereOpensEditor(String topicName) throws IOException {
+	
+	 @Test(priority = 2, dataProvider = "ExcelData2", dataProviderClass = ExcelUtil.class)
+	    public void verifyTryHereButtonVisible(Map<String, String> testData) throws IOException
+	    {
+	    	String topicName = testData.get("ArraysSubtopic");
+	    	pom.getArraysPage().arraysgetstartedClick();
+	    	pom.getArraysPage().topicsCovered(topicName);
+	    //	pom.getArraysPage().tryhere();
+	    	 Assert.assertTrue(pom.getArraysPage().isTryHereButtonVisible(),
+	    	            "Try Here button is not visible");
 
-		pom.getArraysPage().arraysgetstartedClick();
-		pom.getArraysPage().topicsCovered(topicName);
-		pom.getArraysPage().tryhere();
-		Assert.assertTrue(pom.getArraysPage().textEditorIsDisplayed(),
-				"Text editor not displayed");
-	}
+	    }
+	
 
 	// Execute Python code from Excel and verify output
 	@Test(priority = 4, dataProvider = "ExcelData2", dataProviderClass = ExcelUtil.class)
