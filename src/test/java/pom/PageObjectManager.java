@@ -6,6 +6,7 @@ import pages.ArraysPage;
 import pages.GraphPage;
 import pages.HomePage;
 import pages.QueuePage;
+import pages.RegistrationPage;
 import pages.SignInPage;
 
 public class PageObjectManager {
@@ -14,6 +15,7 @@ public class PageObjectManager {
 
 	// private DriverFactory driverFactory;
 	private HomePage homePage;
+	private RegistrationPage registerPage;
 	private SignInPage signIn;
 	private QueuePage queue;
 	private GraphPage graph;
@@ -39,6 +41,14 @@ public class PageObjectManager {
 
 	}
 
+	public RegistrationPage getRegisterPage()
+	{
+
+		if (registerPage == null) {
+			registerPage = new RegistrationPage(driver);
+		}
+		return registerPage;
+	}
 	public SignInPage getSignIN() {
 
 		if (signIn == null) {
