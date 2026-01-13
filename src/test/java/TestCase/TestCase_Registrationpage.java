@@ -19,8 +19,7 @@ public class TestCase_Registrationpage extends BaseTest {
 	public void commonsetup() throws IOException
 	{
 
-        pom.getHomePage().launchApplication();
-        pom.getHomePage().clickGetStarted();
+       
         pom.getHomePage().clickRegisterLink();
 }
 	@Test
