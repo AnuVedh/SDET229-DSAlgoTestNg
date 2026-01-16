@@ -11,11 +11,13 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
+import listeners.ChainTestConfigListener;
+import listeners.Chaintestlistener;
 import com.aventstack.chaintest.plugins.ChainTestListener;
-
 import driverFactory.DriverFactory;
 import pom.PageObjectManager;
-@Listeners(ChainTestListener.class)
+
+@Listeners({ChainTestListener.class, Chaintestlistener.class})
 public class BaseTest {
 
 	protected PageObjectManager pom;
@@ -37,17 +39,7 @@ public class BaseTest {
 		pom.getHomePage().clickGetStarted();
 
 	}
-	
-	 @AfterMethod()
-	    public void attachScreenShotOnFailure(ITestResult testResult){
-	        if(!testResult.isSuccess()){
-	            ChainTestListener.embed(((TakesScreenshot)(driver)).getScreenshotAs(OutputType.BYTES),"image/png");
-	        }
-	    }
-//	  /*Get Screen Shot*/
-//    public byte[] takeScreenShot(){
-//        return ((TakesScreenshot)(driver)).getScreenshotAs(OutputType.BYTES);
-//    }
+
 
 
 	@AfterMethod(alwaysRun = true)
