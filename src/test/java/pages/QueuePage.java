@@ -57,10 +57,8 @@ public class QueuePage extends BasePage {
 
 	public boolean getQsubTopicLinkCount() {
 		logger.info("Verifying count and names of links on Graph page");
-		if (commonPage.getLinkCount(qPageLinkCount) == 4) {
-			return true;
-		}
-		return false;
+		return (commonPage.getLinkCount(qPageLinkCount) == 4);
+
 	}
 
 	public boolean getQsubTopicLinkName(String linkname) {
