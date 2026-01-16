@@ -62,10 +62,8 @@ public class CommonPage {
 	}
 
 	public boolean verifyAssementPage() {
-		if (driver.getTitle().equalsIgnoreCase("Assessment")) {
-			return true;
-		}
-		return false;
+		return (driver.getTitle().equalsIgnoreCase("Assessment"));
+
 	}
 
 	public void enterCode(WebElement element, String code)

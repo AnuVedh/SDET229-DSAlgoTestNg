@@ -56,10 +56,8 @@ public class GraphPage extends BasePage {
 
 	public boolean getGraphsubTopicLinkCount() {
 		logger.info("Verifying count and names of links on Graph page");
-		if (commonPage.getLinkCount(graphPageLinkCount) == 2) {
-			return true;
-		}
-		return false;
+		return (commonPage.getLinkCount(graphPageLinkCount) == 2);
+
 	}
 
 	public boolean getGraphsubTopicLinkName(String linkname) {
