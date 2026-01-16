@@ -22,6 +22,7 @@ public class TestCase_Arrays extends BaseTest {
 
 		pom.getHomePage().clickSignInLink();
 		pom.getSignIN().userLogin();
+		pom.getArraysPage().arraysgetstartedClick();
 	}
 
 	@Test(priority = 2, dataProvider = "ExcelData2", dataProviderClass = ExcelUtil.class)
@@ -29,7 +30,7 @@ public class TestCase_Arrays extends BaseTest {
 			throws IOException {
 
 		String topicName = testData.get("ArraysSubtopic");
-		pom.getArraysPage().arraysgetstartedClick();
+	
 		pom.getArraysPage().topicsCovered(topicName);
 
 		String actualTitle = pom.getArraysPage().fetchtitlepage();
@@ -41,7 +42,7 @@ public class TestCase_Arrays extends BaseTest {
 	    public void verifyTryHereButtonVisible(Map<String, String> testData) throws IOException
 	    {
 	    	String topicName = testData.get("ArraysSubtopic");
-	    	pom.getArraysPage().arraysgetstartedClick();
+	    //	pom.getArraysPage().arraysgetstartedClick();
 	    	pom.getArraysPage().topicsCovered(topicName);
 	    //	pom.getArraysPage().tryhere();
 	    	 Assert.assertTrue(pom.getArraysPage().isTryHereButtonVisible(),
@@ -58,7 +59,7 @@ public class TestCase_Arrays extends BaseTest {
 		String code = testData.get("Code");
 		String expectedMessage = testData.get("Output");
 
-		pom.getArraysPage().arraysgetstartedClick();
+	
 		pom.getArraysPage().topicsCovered(arraysubtopic);
 		pom.getArraysPage().tryhere();
 		pom.getArraysPage().runPythonCode(code);
@@ -77,7 +78,7 @@ public class TestCase_Arrays extends BaseTest {
 		String code = testData.get("Code");
 		String expectedMessage = testData.get("Output");
 
-		pom.getArraysPage().arraysgetstartedClick();
+	
 		pom.getArraysPage().topicsCovered(arraysubtopic);
 		pom.getArraysPage().tryhere();
 		pom.getArraysPage().runPythonCode(code);
@@ -92,7 +93,7 @@ public class TestCase_Arrays extends BaseTest {
 	@Test
 	public void verifyPracticeQuestionsNavigation() throws IOException {
 
-		pom.getArraysPage().arraysgetstartedClick();
+	
 		pom.getArraysPage().topicsCovered("Applications of Array");
 		pom.getArraysPage().practicequeLink();
 
@@ -106,7 +107,7 @@ public class TestCase_Arrays extends BaseTest {
 			Map<String, String> testData) throws IOException {
 
 		String subTopics = testData.get("Practicesubtopic");
-		pom.getArraysPage().arraysgetstartedClick();
+	
 		pom.getArraysPage().topicsCovered("Applications of Array");
 		pom.getArraysPage().practicequeLink();
 		pom.getArraysPage().practicesubTopiclink(subTopics);
@@ -123,7 +124,7 @@ public class TestCase_Arrays extends BaseTest {
 		String code = testData.get("Code");
 		String expectedMessage = testData.get("Output");
 
-		pom.getArraysPage().arraysgetstartedClick();
+	
 		pom.getArraysPage().topicsCovered("Applications of Array");
 		pom.getArraysPage().practicequeLink();
 		pom.getArraysPage().practicesubTopiclink(Practicesubtopic);
@@ -143,7 +144,7 @@ public class TestCase_Arrays extends BaseTest {
 		String code = testData.get("Code");
 		String expectedMessage = testData.get("Output");
 
-		pom.getArraysPage().arraysgetstartedClick();
+	
 		pom.getArraysPage().topicsCovered("Applications of Array");
 		pom.getArraysPage().practicequeLink();
 		pom.getArraysPage().topicsCovered(Practicesubtopic);

@@ -25,6 +25,8 @@ public class ElementActions {
 		wait.until(ExpectedConditions.elementToBeClickable(element)).click();
 	}
 
+
+
 	public void scrollWaitAndClick(WebElement element) {
 
 		((JavascriptExecutor) driver).executeScript(

@@ -1,0 +1,102 @@
+package pages;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import webElementActions.ElementActions;
+
+public class RegistrationPage extends BasePage{
+	
+	private static final Logger logger = LogManager
+			.getLogger(ArraysPage.class);
+	
+	@FindBy(name="username") 
+     WebElement username;
+	@FindBy(name="password1")
+	 WebElement password;
+	@FindBy(id="id_password2") 
+	 WebElement confirmpswd;
+    @FindBy(xpath="//input[@value='Register']")
+	 WebElement registerBtn;
+    @FindBy(xpath="//div[contains(@class,'alert alert-primary')]")
+	 WebElement pswdmismatch;
+    @FindBy(xpath="//a[contains(text(),'Login ')]")
+     WebElement loginBtn;
+	@FindBy(xpath="//div[contains(@class,'alert alert-primary')]")
+	 WebElement newAccountMsg;
+	
+	
+	ElementActions elementActions;
+	
+	public RegistrationPage(WebDriver driver)
+	{
+		super(driver);
+		this.driver=driver;
+		PageFactory.initElements(driver,this);
+		elementActions =new ElementActions(driver);
+	}
+
+     public void usernameFieldvisible()
+	{
+    	 username.isEnabled();
+    	 logger.info("Username Field is Enabled"+username.isEnabled());
+	}
+     public void passwordFieldvisible()
+     {
+    	 logger.info("Password Field is enabled"+password.isEnabled());
+    	 
+     }
+	public void confirmpswdField()
+	{
+		logger.info("ConfirmPassword Field is enabled" +confirmpswd.isEnabled());
+	}
+	public void registerBtnvisible()
+	{
+		logger.info("Registration button is visible"+registerBtn.isDisplayed());
+	}
+
+	public void enterUsername(String user) {
+		elementActions.clickAction(username);
+		elementActions.sendKeys(username, user);
+		}
+
+		public void enterPassword(String pswd) {
+			elementActions.clickAction(password);
+			elementActions.sendKeys(password, pswd);
+		}
+
+		public void enterConfirmPassword(String cpswd) {
+			elementActions.clickAction(confirmpswd);
+			elementActions.sendKeys(confirmpswd, cpswd);
+		}
+		public void clickRegister() {
+			registerBtn.click();
+			}
+	public String ErrorMsg()
+	{
+		String errorText=pswdmismatch.getText();
+		logger.info("ErrorMessage:"  +errorText);
+		return errorText;
+	}
+	public String getUsernameValidationMessage() {
+	    return username.getAttribute("validationMessage");
+	}
+	public String getPasswordValidationMessage() {
+	    return password.getAttribute("validationMessage");
+	}
+	
+
+    
+	public void AccountCreateMsg()
+	{
+		String msg=newAccountMsg.getText();
+		logger.info("Account created message:"+msg);
+	}
+}
+
+
+
