@@ -9,14 +9,16 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.aventstack.chaintest.plugins.ChainTestListener;
+
+//import com.aventstack.chaintest.plugins.ChainTestListener;
+
 import Utils.ExcelUtil;
 import baseTest.BaseTest;
 
 public class TestCase_Arrays extends BaseTest {
 
-	private static final Logger logger = LogManager
-			.getLogger(TestCase_Arrays.class);
-
+	
 	@BeforeMethod
 	public void commonsetup() throws IOException {
 
@@ -30,7 +32,7 @@ public class TestCase_Arrays extends BaseTest {
 			throws IOException {
 
 		String topicName = testData.get("ArraysSubtopic");
-	
+		 ChainTestListener.log("Arrays SubTopicPage");
 		pom.getArraysPage().topicsCovered(topicName);
 
 		String actualTitle = pom.getArraysPage().fetchtitlepage();
@@ -42,6 +44,7 @@ public class TestCase_Arrays extends BaseTest {
 	    public void verifyTryHereButtonVisible(Map<String, String> testData) throws IOException
 	    {
 	    	String topicName = testData.get("ArraysSubtopic");
+	    	ChainTestListener.log("TryHere Button enabled Verification");
 	    //	pom.getArraysPage().arraysgetstartedClick();
 	    	pom.getArraysPage().topicsCovered(topicName);
 	    //	pom.getArraysPage().tryhere();
