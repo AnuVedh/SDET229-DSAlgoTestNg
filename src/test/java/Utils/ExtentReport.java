@@ -1,8 +1,10 @@
+
 package Utils;
 
 import java.io.ByteArrayInputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.testng.ITestContext;
 import org.testng.ITestListener;
@@ -18,116 +20,100 @@ import io.qameta.allure.Allure;
 
 public class ExtentReport implements ITestListener {
 
-	public ExtentSparkReporter sparkReporter;
-	public ExtentReports extent;
-	public ExtentTest test;
+	private static ConcurrentHashMap<String, ExtentReports> reportMap = new ConcurrentHashMap<>();
+	private static ThreadLocal<ExtentTest> parentTest = new ThreadLocal<>();
+	private static ThreadLocal<ExtentTest> test = new ThreadLocal<>();
 
-	// @Override
-	public void onTestStart(ITestResult result) {
-
-		// TODO Auto-generated method stub
-
-		// test = extent.createTest(result.getName());
-		// test = extent.createTest(result.getTestClass().getName());
-		// test.log(Status.INFO, result.getName());
-
-	}
-
-	// @Override
-	public void onTestSuccess(ITestResult result) {
-		// TODO Auto-generated method stub
-
-		String browser = result.getTestContext().getCurrentXmlTest()
-				.getParameter("browser");
-
-		if (result.getAttribute("TestCaseData") != null) {
-			test = extent.createTest(result.getTestClass().getName() + " _ "
-					+ result.getName() + "_"
-					+ result.getAttribute("TestCaseData") + "_" + browser);
-
-		} else {
-			test = extent.createTest(
-					result.getTestClass().getName() + " _ " + result.getName());
-
-		}
-		test.log(Status.PASS, result.getName());
-
-	}
-
-	//// @Override
-	public void onTestFailure(ITestResult result) {
-		// TODO Auto-generated method stub
-
-		String browser = result.getTestContext().getCurrentXmlTest()
-				.getParameter("browser");
-		if (result.getAttribute("TestCaseData") != null) {
-			test = extent.createTest(result.getTestClass().getName() + " _ "
-					+ result.getName() + "_"
-					+ result.getAttribute("TestCaseData") + "_" + browser);
-
-		} else {
-			test = extent.createTest(
-					result.getTestClass().getName() + " _ " + result.getName());
-		}
-
-		test.log(Status.FAIL, result.getName());
-		test.log(Status.FAIL, result.getThrowable())
-				.addScreenCaptureFromBase64String(Screenshot.base64Sceenshot(),
-						"Test Failure Screenshot");
-		Allure.addAttachment("Failure Screenshot", new ByteArrayInputStream(
-				Screenshot.byteScreenshot()));/* no annotation needed */
-
-	}
-
-	// @Override
-	public void onTestSkipped(ITestResult result) {
-
-		String browser = result.getTestContext().getCurrentXmlTest()
-				.getParameter("browser");
-		if (result.getAttribute("TestCaseData") != null) {
-			test = extent.createTest(result.getTestClass().getName() + " _ "
-					+ result.getName() + "_"
-					+ result.getAttribute("TestCaseData") + "_" + browser);
-
-		} else {
-			test = extent.createTest(
-					result.getTestClass().getName() + " _ " + result.getName());
-
-		}
-		test.log(Status.SKIP, result.getName());
-
-	}
-
-	// @Override
-	public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
-		// TODO Auto-generated method stub
-
-	}
-
-	// @Override
+	@Override
 	public void onStart(ITestContext context) {
-		// TODO Auto-generated method stub
-
-		String Timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.SS")
+		String browser = context.getCurrentXmlTest().getParameter("browser");
+		String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss")
 				.format(new Date());
-		String repname = "DS-Algo TestReport" + Timestamp + ".html";
+		String repname = "DS-Algo TestReport_" + browser + "_" + timestamp
+				+ ".html";
 
-		sparkReporter = new ExtentSparkReporter(".\\Report\\" + repname);
-		sparkReporter.config().setDocumentTitle("DSALgo-DataStructure");
-		sparkReporter.config().setReportName("Functional Testing");
+		ExtentSparkReporter sparkReporter = new ExtentSparkReporter(
+				".\\Report\\" + repname);
+		sparkReporter.config().setDocumentTitle("DS-Algo DataStructure");
+		sparkReporter.config().setReportName("Functional Testing - " + browser);
 		sparkReporter.config().setTheme(Theme.DARK);
 
-		extent = new ExtentReports();
+		ExtentReports extent = new ExtentReports();
 		extent.attachReporter(sparkReporter);
+		extent.setSystemInfo("Browser", browser);
 
+		// Map the browser name to this specific report instance
+		reportMap.put(browser, extent);
 	}
 
-	// @Override
+	@Override
+	public void onTestStart(ITestResult result) {
+		String browser = result.getTestContext().getCurrentXmlTest()
+				.getParameter("browser");
+		ExtentReports extent = reportMap.get(browser);
+
+		// Synchronize parent creation to prevent duplicate class entries in
+		// parallel
+		String className = result.getTestClass().getName();
+
+		System.out.println(parentTest.get());
+		System.out.println(className);
+
+		if (parentTest.get() == null
+				|| !parentTest.get().getModel().getName().equals(className)) {
+
+			ExtentTest parent = extent.createTest(className);
+			parentTest.set(parent);
+		}
+
+		String nodeName = result.getMethod().getMethodName() + "_" + browser;
+		ExtentTest child = parentTest.get().createNode(nodeName);
+		test.set(child);
+	}
+
+	@Override
+	public void onTestSuccess(ITestResult result) {
+		Object testName = "";
+		if (result.getAttribute("TestCaseData") != null) {
+			testName = "_" + (result.getAttribute("TestCaseData"));
+		}
+		test.get().log(Status.PASS,
+				"Test Passed: " + result.getName() + "_" + testName);
+	}
+
+	@Override
+	public void onTestFailure(ITestResult result) {
+
+		String testName = "";
+
+		Object[] params = result.getParameters();
+
+		if (params.length > 0) {
+
+			testName = "_" + (result.getMethod().getMethodName()) + params[0];
+		}
+		test.get().log(Status.FAIL,
+				"Test Failed: " + result.getName() + testName);
+		test.get().log(Status.FAIL, result.getThrowable());
+
+		// Screenshot logic
+		test.get().addScreenCaptureFromBase64String(
+				Screenshot.base64Sceenshot(), "Failure Screenshot");
+		Allure.addAttachment("Failure Screenshot",
+				new ByteArrayInputStream(Screenshot.byteScreenshot()));
+	}
+
+	@Override
 	public void onFinish(ITestContext context) {
-		// TODO Auto-generated method stub
+		String browser = context.getCurrentXmlTest().getParameter("browser");
+		ExtentReports extent = reportMap.get(browser);
 
-		extent.flush();
+		if (extent != null) {
+			extent.flush();
+		}
 
+		// Clean up ThreadLocals for this thread
+		parentTest.remove();
+		test.remove();
 	}
-
 }
