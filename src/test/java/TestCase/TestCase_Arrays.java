@@ -3,8 +3,6 @@ package TestCase;
 import java.io.IOException;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -18,7 +16,6 @@ import baseTest.BaseTest;
 
 public class TestCase_Arrays extends BaseTest {
 
-	
 	@BeforeMethod
 	public void commonsetup() throws IOException {
 
@@ -32,27 +29,26 @@ public class TestCase_Arrays extends BaseTest {
 			throws IOException {
 
 		String topicName = testData.get("ArraysSubtopic");
-		 ChainTestListener.log("Arrays SubTopicPage");
+		ChainTestListener.log("Arrays SubTopicPage");
 		pom.getArraysPage().topicsCovered(topicName);
 
 		String actualTitle = pom.getArraysPage().fetchtitlepage();
 		Assert.assertEquals(actualTitle, topicName,
 				"Title mismatch for topic: " + topicName);
 	}
-	
-	 @Test(priority = 2, dataProvider = "ExcelData2", dataProviderClass = ExcelUtil.class)
-	    public void verifyTryHereButtonVisible(Map<String, String> testData) throws IOException
-	    {
-	    	String topicName = testData.get("ArraysSubtopic");
-	    	ChainTestListener.log("TryHere Button enabled Verification");
-	    //	pom.getArraysPage().arraysgetstartedClick();
-	    	pom.getArraysPage().topicsCovered(topicName);
-	    //	pom.getArraysPage().tryhere();
-	    	 Assert.assertTrue(pom.getArraysPage().isTryHereButtonVisible(),
-	    	            "Try Here button is not visible");
 
-	    }
-	
+	@Test(priority = 2, dataProvider = "ExcelData2", dataProviderClass = ExcelUtil.class)
+	public void verifyTryHereButtonVisible(Map<String, String> testData)
+			throws IOException {
+		String topicName = testData.get("ArraysSubtopic");
+		ChainTestListener.log("TryHere Button enabled Verification");
+		// pom.getArraysPage().arraysgetstartedClick();
+		pom.getArraysPage().topicsCovered(topicName);
+		// pom.getArraysPage().tryhere();
+		Assert.assertTrue(pom.getArraysPage().isTryHereButtonVisible(),
+				"Try Here button is not visible");
+
+	}
 
 	// Execute Python code from Excel and verify output
 	@Test(priority = 4, dataProvider = "ExcelData2", dataProviderClass = ExcelUtil.class)
@@ -62,7 +58,6 @@ public class TestCase_Arrays extends BaseTest {
 		String code = testData.get("Code");
 		String expectedMessage = testData.get("Output");
 
-	
 		pom.getArraysPage().topicsCovered(arraysubtopic);
 		pom.getArraysPage().tryhere();
 		pom.getArraysPage().runPythonCode(code);
@@ -81,7 +76,6 @@ public class TestCase_Arrays extends BaseTest {
 		String code = testData.get("Code");
 		String expectedMessage = testData.get("Output");
 
-	
 		pom.getArraysPage().topicsCovered(arraysubtopic);
 		pom.getArraysPage().tryhere();
 		pom.getArraysPage().runPythonCode(code);
@@ -96,7 +90,6 @@ public class TestCase_Arrays extends BaseTest {
 	@Test
 	public void verifyPracticeQuestionsNavigation() throws IOException {
 
-	
 		pom.getArraysPage().topicsCovered("Applications of Array");
 		pom.getArraysPage().practicequeLink();
 
@@ -110,7 +103,7 @@ public class TestCase_Arrays extends BaseTest {
 			Map<String, String> testData) throws IOException {
 
 		String subTopics = testData.get("Practicesubtopic");
-	
+
 		pom.getArraysPage().topicsCovered("Applications of Array");
 		pom.getArraysPage().practicequeLink();
 		pom.getArraysPage().practicesubTopiclink(subTopics);
@@ -127,7 +120,6 @@ public class TestCase_Arrays extends BaseTest {
 		String code = testData.get("Code");
 		String expectedMessage = testData.get("Output");
 
-	
 		pom.getArraysPage().topicsCovered("Applications of Array");
 		pom.getArraysPage().practicequeLink();
 		pom.getArraysPage().practicesubTopiclink(Practicesubtopic);
@@ -147,7 +139,6 @@ public class TestCase_Arrays extends BaseTest {
 		String code = testData.get("Code");
 		String expectedMessage = testData.get("Output");
 
-	
 		pom.getArraysPage().topicsCovered("Applications of Array");
 		pom.getArraysPage().practicequeLink();
 		pom.getArraysPage().topicsCovered(Practicesubtopic);
