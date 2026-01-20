@@ -24,34 +24,34 @@ public class HomePage extends BasePage {
 	private WebElement getStartedButton;
 
 	@FindBy(xpath = "//a[contains(text(),' Register ')]") // register link
-	WebElement registerLink;
+	private WebElement registerLink;
 	@FindBy(xpath = "//input[@value='Register']") // verify registerpage
-	WebElement register;
+	private WebElement register;
 	@FindBy(xpath = "//a[contains(text(),'Sign in')]") // signin link
-	WebElement signinLink;
+	private WebElement signinLink;
 	@FindBy(xpath = "//input[@value='Login']") // verify signin page with login
 												// button text
-	WebElement signin;
-	@FindBy(xpath = "//input[@type='submit']")
-	WebElement loginBtn;
+	private WebElement signin;
+    @FindBy(xpath = "//input[@type='submit']")
+    private WebElement loginBtn;
 	@FindBy(xpath = "//div[contains(@class,'dropdown-menu')]/a")
-	List<WebElement> dropdownTopics;
+	private List<WebElement> dropdownTopics;
 
 	@FindBy(xpath = "//a[contains(@class,'nav-link dropdown-toggle')]")
-	WebElement dropdownBtn;
+	private WebElement dropdownBtn;
 	
 
 	@FindBy(xpath = "//div[contains(@class,'alert')]")
-	WebElement errorMsg;
+	private WebElement errorMsg;
 
 	@FindBy(xpath = "//div[@class='col']/div/div/h5")
-	List<WebElement> getstartedTopic;
+	private List<WebElement> getstartedTopic;
 
 	@FindBy(xpath = "//div[@class='col']/div/div/a")
-	List<WebElement> getstartedBtn;
+	private List<WebElement> getstartedBtn;
 
 	@FindBy(xpath = "//h4[contains(@class,'bg-secondary text-white')]")
-	WebElement intropageHeading;
+	private WebElement intropageHeading;
 
 	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
@@ -77,9 +77,7 @@ public class HomePage extends BasePage {
 		String url = ConfigReader.getProperty("url");
 		driver.get(url);
 	}
-	public void goToHomePage() {
-	    driver.navigate().to("https://dsportalapp.herokuapp.com/home");
-	}
+	
 
 	public void clickRegisterLink() {
 	    elementActions.clickAction(registerLink);
@@ -126,11 +124,9 @@ public class HomePage extends BasePage {
 	public void getStartedclick(String topic) {
 		
 		
-		System.out.println("Current URL: " + driver.getCurrentUrl());
-		System.out.println("Topics found: " + getstartedTopic.size());
-		System.out.println("Buttons found: " + getstartedBtn.size());
+		
 
-	//	String normalizedTarget = topic.replaceAll("[\\t\\n\\r]+", "").trim().toLowerCase();
+	
 		String normalizedTarget = topic.strip().toLowerCase();
 		List<WebElement> freshTopics =
 	            wait.until(ExpectedConditions.visibilityOfAllElements(getstartedTopic));
@@ -143,7 +139,7 @@ public class HomePage extends BasePage {
 		    if (normalizedText.equals(normalizedTarget)) {
 		        List<WebElement> freshButtons =
 		                wait.until(ExpectedConditions.visibilityOfAllElements(getstartedBtn));
-		        System.out.print("FreshButtons:"+freshButtons.get(i).getText());
+		        
 		        elementActions.clickAction(freshButtons.get(i));
 		        
 		        

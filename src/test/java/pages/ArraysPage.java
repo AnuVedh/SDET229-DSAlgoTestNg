@@ -23,32 +23,34 @@ public class ArraysPage extends BasePage {
 
 	private static final Logger logger = LogManager.getLogger(ArraysPage.class);
 	@FindBy(xpath = "//div[2][@class='col']/div[1]/div/a")
-	WebElement arraysGetStartedBtn;
+	private WebElement arraysGetStartedBtn;
 	@FindBy(xpath = "//h4[contains(@class,'bg-secondary text-white')]")
-	WebElement fetchpageTitle;
+	private WebElement fetchpageTitle;
 
 	@FindBy(xpath = "//a[contains(@class,'list-group-item')]")
-	List<WebElement> arraysubpageLinks;
-	@FindBy(xpath = "//div[@class='col-sm']/strong//p[contains(@class,'bg-secondary text-white')]")
-	WebElement arraysubpageTitle;
+	private List<WebElement> arraysubpageLinks;
+	
+//	@FindBy(xpath = "//div[@class='col-sm']/strong//p[contains(@class,'bg-secondary text-white')]")
+	@FindBy(xpath = "//div/strong/p")
+	private WebElement arraysubpageTitle;
 
 	@FindBy(xpath = "//a[contains(@class,'btn btn-info')]")
-	WebElement tryhereBtn;
+	private WebElement tryhereBtn;
 	@FindBy(xpath = "//div[contains(@class,'CodeMirror cm-s-default')]")
 
-	WebElement texteditor;
+	private WebElement texteditor;
 	@FindBy(xpath = "//button[@type='button']")
-	WebElement runBtn;
+	private WebElement runBtn;
 	@FindBy(id = "output")
-	WebElement consoleOutput;
+	private WebElement consoleOutput;
 	String expectedMessage;
 	@FindBy(xpath = "//a[contains(text(),'Practice Questions')]")
-	WebElement practiceQueLink;
+	private WebElement practiceQueLink;
 	@FindBy(xpath = "//a[contains(@class,'list-group-item')]")
-	List<WebElement> practiceSubTopics;
+	private List<WebElement> practiceSubTopics;
 
 	@FindBy(xpath = "//div[@class='question']/h2")
-	WebElement practicesubTopicsTitle;
+	private WebElement practicesubTopicsTitle;
 
 	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
