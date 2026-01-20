@@ -13,7 +13,6 @@ public class PageObjectManager {
 
 	private WebDriver driver;
 
-	
 	private HomePage homePage;
 	private RegistrationPage registerPage;
 	private SignInPage signIn;
@@ -25,7 +24,6 @@ public class PageObjectManager {
 
 		this.driver = driver;
 
-		System.out.println("driver inside POM is " + driver);
 	}
 
 	public WebDriver getDriver() {
@@ -41,8 +39,7 @@ public class PageObjectManager {
 
 	}
 
-	public RegistrationPage getRegisterPage()
-	{
+	public RegistrationPage getRegisterPage() {
 
 		if (registerPage == null) {
 			registerPage = new RegistrationPage(driver);

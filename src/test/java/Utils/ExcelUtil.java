@@ -157,7 +157,6 @@ public class ExcelUtil {
 		// return excelData.get(sheetName);
 
 		String testsheet = methodName.getDeclaringClass().getName();
-		System.out.println(testsheet);
 
 		switch (testsheet) {
 			case "TestCase.TestCase_SignIn" :
@@ -189,12 +188,10 @@ public class ExcelUtil {
 			case "testGetStartedAfterLogin" :
 				return excelData.get("HomePage_GetStarted");
 
-			case "verifyTryHereButtonVisible":
+			case "verifyTryHereButtonVisible" :
 			case "verifyTopicNavigation" :
 			case "verifyValidPythonCodeExecution" :
 				return excelData.get("Validpythoncode");
-			
-				
 
 			case "verifyInValidPythonCodeExecution" :
 				return excelData.get("InValidpythoncode");
@@ -205,22 +202,8 @@ public class ExcelUtil {
 
 			case "verifyPracticepageInValidPythonCodeExecution" :
 				return excelData.get("PracticepageInValidcode");
-				
-//			case "VerifyblankUsername_validPassword":
-//				return excelData.get("Registration");
-//				
-//			case "VerifyvalidUsername_blankPassword":
-//				return excelData.get("Registration");
-//				
-//			case "VerifypasswordWithOnlyNumbers":
-//				return excelData.get("Registration");
-//				
-//			case "VerifypasswordWithOnlySpecialChar":
-//				return excelData.get("Registration");
-//			
-//			case "VerifypasswordWithLessthan8character":
-//				return excelData.get("Registration");
-			case "VerifyRegisterTestcases":
+
+			case "VerifyRegisterTestcases" :
 				return excelData.get("Registration");
 			default :
 				return null;

@@ -13,8 +13,6 @@ import baseTest.BaseTest;
 
 public class TestCase_Queue extends BaseTest {
 
-	// private ITestContext context;
-
 	@BeforeMethod
 	public void goToQueuePage() throws InterruptedException, IOException {
 		// this.context = context;
@@ -22,11 +20,6 @@ public class TestCase_Queue extends BaseTest {
 		pom.getSignIN().userLogin();
 		pom.getQueuePage().goToQueuePAge();
 	}
-
-	// @AfterMethod
-	// public void SignOut() {
-	// pom.getSignIN().Signout();
-	// }
 
 	@Test
 	public void VerifyQueueSubTopicLinkCount() {
@@ -51,13 +44,10 @@ public class TestCase_Queue extends BaseTest {
 	public void VerifyQueueSubTopicsPage(Map<String, String> linkName)
 			throws InterruptedException {
 
-		// context.setAttribute("TestCaseData", linkName.get("QueuePageLinks"));
 		Reporter.getCurrentTestResult().setAttribute("TestCaseData",
 				"Queue Subtopic :" + linkName.get("QueuePageLinks"));
 		pom.getQueuePage()
 				.clickonQueueSubtopicLinks(linkName.get("QueuePageLinks"));
-		// boolean result = pom.getQueuePage()
-		// .verifyQueuesubTopicLinkPage(linkName.get("QueuePageLinks"));
 		Assert.assertTrue(pom.getQueuePage()
 				.verifyQueuesubTopicLinkPage(linkName.get("QueuePageLinks")));
 	}
@@ -67,7 +57,6 @@ public class TestCase_Queue extends BaseTest {
 	public void VerfiyQueueSubtopicTryHereLink(Map<String, String> linkName)
 			throws InterruptedException {
 
-		// context.setAttribute("TestCaseData", linkName.get("QueuePageLinks"));
 		Reporter.getCurrentTestResult().setAttribute("TestCaseData",
 				"Queue Subtopic :" + linkName.get("QueuePageLinks"));
 		pom.getQueuePage()
@@ -81,7 +70,7 @@ public class TestCase_Queue extends BaseTest {
 			"SubTopic"})
 	public void VerifyQueueSubtopicCodeExecutionValid(
 			Map<String, String> linkName) throws InterruptedException {
-		// context.setAttribute("TestCaseData", linkName.get("QueuePageLinks"));
+
 		Reporter.getCurrentTestResult().setAttribute("TestCaseData",
 				"Queue Subtopic :" + linkName.get("QueuePageLinks"));
 		pom.getQueuePage().subTopicSetUp(linkName.get("QueuePageLinks"));

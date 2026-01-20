@@ -42,7 +42,6 @@ public class ExtentReport implements ITestListener {
 		extent.attachReporter(sparkReporter);
 		extent.setSystemInfo("Browser", browser);
 
-		// Map the browser name to this specific report instance
 		reportMap.put(browser, extent);
 	}
 
@@ -52,12 +51,7 @@ public class ExtentReport implements ITestListener {
 				.getParameter("browser");
 		ExtentReports extent = reportMap.get(browser);
 
-		// Synchronize parent creation to prevent duplicate class entries in
-		// parallel
 		String className = result.getTestClass().getName();
-
-		System.out.println(parentTest.get());
-		System.out.println(className);
 
 		if (parentTest.get() == null
 				|| !parentTest.get().getModel().getName().equals(className)) {

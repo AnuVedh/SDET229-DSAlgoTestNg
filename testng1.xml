@@ -3,10 +3,10 @@
 <suite name="DSALGO Suite" thread-count="5" parallel="tests">
 
 <listeners>
-    <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+    
     <listener class-name="Utils.ExtentReport"/>
-     <listener class-name="listeners.ChainTestConfigListener"/>
-    <listener class-name="com.aventstack.chaintest.plugins.ChainTestListener"/>
+     <listener class-name="listeners.Chaintestlistener2"/>
+   
 
    
 </listeners>
