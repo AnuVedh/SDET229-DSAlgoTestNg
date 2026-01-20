@@ -11,25 +11,25 @@ import org.openqa.selenium.support.FindBy;
 public class GraphPage extends BasePage {
 
 	@FindBy(xpath = "//a[@href='graph']")
-	WebElement graphStartButton;
+	private WebElement graphStartButton;
 
 	@FindBy(xpath = "//ul//a[@class='list-group-item']")
-	List<WebElement> graphPageLinkCount;
+	private List<WebElement> graphPageLinkCount;
 
 	@FindBy(xpath = "//div/strong/p")
-	WebElement graphPageLinkTitle;
+	private WebElement graphPageLinkTitle;
 
 	@FindBy(xpath = "//div[@class='CodeMirror-scroll']")
-	WebElement codeSpace1;
+	private WebElement codeSpace1;
 
 	@FindBy(xpath = "//button[text()='Run']")
-	WebElement runButton;
+	private WebElement runButton;
 
 	@FindBy(id = "output")
-	WebElement Output;
+	private WebElement Output;
 
 	@FindBy(linkText = "Try here>>>")
-	WebElement tryHereLink;
+	private WebElement tryHereLink;
 
 	@FindBy(xpath = "//a[@data-toggle='dropdown']")
 	private WebElement DSdropdown;

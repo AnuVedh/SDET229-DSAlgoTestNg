@@ -32,9 +32,9 @@ public class QueuePage extends BasePage {
 	@FindBy(xpath = "//a[@class='dropdown-item']")
 	private List<WebElement> selectTopic;
 	@FindBy(xpath = "//div[contains(@class,'dropdown-menu')]//a")
-	List<WebElement> dropdownTopics;
+	private List<WebElement> dropdownTopics;
 	@FindBy(xpath = "//a[contains(@class,'nav-link dropdown-toggle')]")
-	WebElement dropdownBtn;
+	private WebElement dropdownBtn;
 	@FindBy(xpath = "//a[@data-toggle='dropdown']")
 	private WebElement DSdropdown;
 

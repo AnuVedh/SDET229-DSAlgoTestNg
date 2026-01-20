@@ -15,19 +15,19 @@ public class RegistrationPage extends BasePage{
 			.getLogger(ArraysPage.class);
 	
 	@FindBy(name="username") 
-     WebElement username;
+	private WebElement username;
 	@FindBy(name="password1")
-	 WebElement password;
+	private WebElement password;
 	@FindBy(id="id_password2") 
-	 WebElement confirmpswd;
+	private WebElement confirmpswd;
     @FindBy(xpath="//input[@value='Register']")
-	 WebElement registerBtn;
+    private WebElement registerBtn;
     @FindBy(xpath="//div[contains(@class,'alert alert-primary')]")
-	 WebElement pswdmismatch;
+    private WebElement pswdmismatch;
     @FindBy(xpath="//a[contains(text(),'Login ')]")
-     WebElement loginBtn;
+    private WebElement loginBtn;
 	@FindBy(xpath="//div[contains(@class,'alert alert-primary')]")
-	 WebElement newAccountMsg;
+	private WebElement newAccountMsg;
 	
 	
 	ElementActions elementActions;
