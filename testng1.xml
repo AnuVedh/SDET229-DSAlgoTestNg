@@ -5,22 +5,26 @@
 <listeners>
     <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
     <listener class-name="Utils.ExtentReport"/>
-</listeners>
+     <listener class-name="listeners.ChainTestConfigListener"/>
+    <listener class-name="com.aventstack.chaintest.plugins.ChainTestListener"/>
 
+   
+</listeners>
 
 <test name="DSAlgoTest-chrome" >
   <parameter name="browser" value="chrome"></parameter>
     <classes>
      
-      <class name="TestCase.TestCase_Arrays"/>
+     <class name="TestCase.TestCase_Arrays"/>
       <class name="TestCase.TestCase_Home"/>
        <class name="TestCase.TestCase_Registrationpage"/>
         <class name="TestCase.TestCase_SignIn"/>
          <class name="TestCase.TestCase_Queue"/>
-      <class name="TestCase.TestCase_Graph"/>
+      <class name="TestCase.TestCase_Graph"/>  
+     <class name="TestCase.TestCase_Queue"/>
     </classes>
   </test> <!-- Test -->
-  
+   
   <test name="DSAlgoTest-edge" >
   <parameter name="browser" value="edge"></parameter>
     <classes>
@@ -31,9 +35,9 @@
        <class name="TestCase.TestCase_Queue"/>
       <class name="TestCase.TestCase_Graph"/>
       
-    </classes>
-  </test> <!-- Test -->
-  
+    </classes>  
+  </test>  <!-- Test -->
+ 
    <test name="DSAlgoTest-firefox" >
   <parameter name="browser" value="firefox"></parameter>
     <classes>
@@ -41,7 +45,7 @@
        <class name="TestCase.TestCase_Registrationpage"/>
      <class name="TestCase.TestCase_Queue"/>
       <class name="TestCase.TestCase_Graph"/>
-    </classes>
-  </test> <!-- Test -->
+    </classes>  
+  </test>   <!-- Test -->
 </suite> <!-- Suite -->
 
