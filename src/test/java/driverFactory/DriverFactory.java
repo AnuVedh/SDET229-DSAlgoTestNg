@@ -12,12 +12,10 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import Utils.ConfigReader;
 
-
 public class DriverFactory {
 	private static final Logger logger = LogManager
 			.getLogger(DriverFactory.class);
 	private static final ThreadLocal<WebDriver> tldriver = new ThreadLocal<>();
-	private static ThreadLocal<String> plbrowser = new ThreadLocal<>();
 
 	private static WebDriver driver;
 
@@ -25,8 +23,6 @@ public class DriverFactory {
 		return tldriver.get();
 
 	}
-
-
 
 	public static void initDriver(String browser) {
 
@@ -57,7 +53,5 @@ public class DriverFactory {
 		driver.manage().window().maximize();
 
 	}
-
-	
 
 }
