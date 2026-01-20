@@ -15,12 +15,7 @@ public class TestCase_Home extends BaseTest {
 	private static final Logger logger = LogManager
 			.getLogger(TestCase_Home.class);
 
-	// @BeforeMethod
-	// public void commonsetup()
-	// {
-	// pom.getHomePage().launchApplication();
-	// pom.getHomePage().clickGetStarted();
-	// }
+	
 	@Test
 	public void navigateFromLaunchToHome() {
 
