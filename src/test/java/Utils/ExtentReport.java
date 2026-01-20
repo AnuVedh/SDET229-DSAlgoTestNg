@@ -53,9 +53,6 @@ public class ExtentReport implements ITestListener {
 
 		String className = result.getTestClass().getName();
 
-		System.out.println(parentTest.get());
-		System.out.println(className);
-
 		if (parentTest.get() == null
 				|| !parentTest.get().getModel().getName().equals(className)) {
 
