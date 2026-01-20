@@ -13,8 +13,6 @@ import baseTest.BaseTest;
 
 public class TestCase_Graph extends BaseTest {
 
-	// private ITestContext context;
-
 	@BeforeMethod
 	public void goToGraphPage() throws InterruptedException, IOException {
 
@@ -24,13 +22,6 @@ public class TestCase_Graph extends BaseTest {
 		pom.getGraphPage().goToGraphPage();
 
 	}
-
-	// @AfterMethod
-	// public void SignOut() {
-	//
-	// pom.getSignIN().Signout();
-	//
-	// }
 
 	@Test
 	public void VerifyGraphSubTopicLinkCount() {
