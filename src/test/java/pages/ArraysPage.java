@@ -106,8 +106,7 @@ public class ArraysPage extends BasePage {
 	}
 	
 	public boolean isTryHereButtonVisible() {
-		String tryhereBtnText=tryhereBtn.getText();
-	//	System.out.println(tryhereBtnText);
+	
 	    return tryhereBtn.isDisplayed();
 	}
 	public boolean textEditorIsDisplayed() {
